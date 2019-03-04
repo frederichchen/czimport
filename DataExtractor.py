@@ -59,6 +59,8 @@ class DataExtractor:
                         cursor.execute(sql)
                         cursor.execute(
                             'alter table %s modify DISTRICT_NAME VARCHAR2(100)' % res.group(1))
+                        cursor.execute(
+                            'alter table %s modify DISTRICT_CODE VARCHAR2(50)' % res.group(1))
                     else:
                         sql = "insert into %s select '%s' DISTRICT_CODE, '%s' DISTRICT_NAME, '%s' YEAR, %s" % (
                             res.group(1), district_code, district_name, year, res.group(2))

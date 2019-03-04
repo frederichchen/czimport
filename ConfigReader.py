@@ -30,10 +30,10 @@ class ConfigReader:
     modifier     修改表结构脚本的路径
     """
 
-    def __init__(self):
+    def __init__(self, conf_path):
         conf = configparser.ConfigParser()
         try:
-            conf.read('./config.ini')
+            conf.read(conf_path)
             self.host = conf.get('oracle', 'host')
             self.sid = conf.get('oracle', 'sid')
             self.syspass = conf.get('oracle', 'syspass')

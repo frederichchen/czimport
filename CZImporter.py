@@ -25,9 +25,11 @@ class CZImporter:
         logger       ImpLogger类型，记录日志
     """
 
-    def __init__(self):
+    def __init__(self, conf_path=''):
         # 读取配置文件并将待导入文件加入列表
-        self.conf = ConfigReader()
+        if conf_path == '':
+            conf_path = './config.ini'
+        self.conf = ConfigReader(conf_path)
         self.files = []
         self.districts = {}
         # 将待导入的文件加入列表
@@ -137,9 +139,9 @@ class CZImporter:
 
             # 然后是提取数据
             if self.extractor is not None:
-                self.extractor.extract_data(uname, self.districts[uname][0],
-                                            self.districts[uname][2],
-                                            self.districts[uname][1])
+                extras = self.districts.get(uname, [uname, '0000', uname])
+                self.extractor.extract_data(
+                    uname, extras[0], extras[uname][2], extras[1])
             file_count = file_count + 1
             if self.modifier is not None and file_count == 1:
                 self.modifier.modify_data(self.conf.modifier)
