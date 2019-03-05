@@ -143,7 +143,7 @@ class CZImporter:
                 self.extractor.extract_data(
                     uname, extras[0], extras[2], extras[1])
                 if extras[1] == '0000':
-                    self.logger("！！警告：文件 %s 未找到对应的行政区划代码！！" % f)
+                    self.logger.write_log("！！警告：文件 %s 未找到对应的行政区划代码！！" % f)
             file_count = file_count + 1
             if self.modifier is not None and file_count == 1:
                 self.modifier.modify_data(self.conf.modifier)
@@ -152,8 +152,8 @@ class CZImporter:
                 self.del_user()
             self.logger.write_log("文件 %s 处理完毕，时间是：%s。" % (
                 f, time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))))
+            self.logger.write_log("------------------------------------------")
 
         self.logger.write_log("处理完毕，共处理%d个文件，时间是：%s。" % (
             file_count, time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))))
-        self.logger.write_log("------------------------------------------")
         self.logger.close_log()
